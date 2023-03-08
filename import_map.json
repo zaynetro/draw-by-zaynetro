@@ -1,0 +1,6 @@
+{
+  "imports": {
+    "oak/": "https://deno.land/x/oak@v12.1.0/",
+    "std/": "https://deno.land/std@0.176.0/"
+  }
+}
