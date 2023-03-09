@@ -2,7 +2,6 @@
 FROM denoland/deno:1.31.1
 
 EXPOSE 8000
-USER deno
 WORKDIR /app
 
 # Cache the dependencies as a layer (the following two steps are re-run only when deps.ts is modified).
