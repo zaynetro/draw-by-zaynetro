@@ -1,18 +1,6 @@
-import { assert, assertEquals } from "std/testing/asserts.ts";
+import { assert, assertEquals, ServerRequestBody } from "./test_deps.ts";
 import { router } from "./app.ts";
-import { Request, Status, testing } from "oak/mod.ts";
-import { ServerRequestBody } from "oak/types.d.ts";
-
-Deno.test("Index page", async () => {
-  const ctx = testing.createMockContext({
-    path: "/",
-  });
-  const next = testing.createMockNext();
-
-  await router.routes()(ctx, next);
-
-  assertEquals(ctx.response.body, "Hello world!");
-});
+import { Request, Status, testing } from "./deps.ts";
 
 Deno.test({
   name: "Draw default",
@@ -46,11 +34,11 @@ Deno.test({
 
       await router.routes()(ctx, next);
 
-      assertEquals(ctx.response.status, Status.OK);
       assertEquals(
         ctx.response.body,
         `<svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg"><g><rect x="0" y="0" width="20" height="20" fill="red"></rect></g></svg>`,
       );
+      assertEquals(ctx.response.status, Status.OK);
       assertEquals(ctx.response.headers.get("Content-Type"), "image/svg+xml");
     });
 

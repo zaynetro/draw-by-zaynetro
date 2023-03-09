@@ -1,4 +1,4 @@
-import { Application, etag, FlashServer, Router, Status } from "oak/mod.ts";
+import { Application, etag, FlashServer, Router, Status } from "./deps.ts";
 import { Color, SIZE } from "./static/painter.ts";
 
 const worker = new Worker(new URL("./worker.ts", import.meta.url), {
@@ -10,7 +10,9 @@ const worker = new Worker(new URL("./worker.ts", import.meta.url), {
       env: false,
       sys: false,
       hrtime: false,
-      net: false,
+      net: [
+        "draw-zaynetro.fly.dev",
+      ],
       ffi: false,
       read: [
         "./user-code/",
@@ -31,7 +33,6 @@ router
     });
   })
   .get("/api/draw", async (ctx) => {
-    console.log("state", ctx.state);
     const payload = await Deno.readTextFile("./static/draw-deno.ts");
     const svg = await draw(payload);
     ctx.response.body = svg;
@@ -51,14 +52,10 @@ router
       }
 
       userCode = new TextDecoder().decode(files[0].content);
-    } else if (body.type === "json") {
-      userCode = await body.value;
     } else {
-      ctx.response.body = "Unsupported payload.";
-      ctx.response.status = Status.BadRequest;
-      return;
+      const text = ctx.request.body({ type: "text" });
+      userCode = await text.value;
     }
-    console.log("payload", userCode);
 
     try {
       const svg = await draw(userCode);
