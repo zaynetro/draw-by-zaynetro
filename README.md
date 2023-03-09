@@ -21,5 +21,9 @@ Submit your code and save resulting SVG to a file:
 
 ```
 curl -XPOST -d 'export default [[2, 2]];' http://localhost:8000/api/draw > drawing.svg
+
+# Or upload a local file "draw-deno.ts"
+
+curl -XPOST -F "file=@draw-deno.ts" http://localhost:8000/api/draw > drawing.svg
 ```
 

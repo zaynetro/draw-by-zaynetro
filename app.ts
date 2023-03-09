@@ -38,11 +38,30 @@ router
     ctx.response.headers.set("Content-Type", "image/svg+xml");
   })
   .post("/api/draw", async (ctx) => {
-    const body = ctx.request.body({ type: "text" });
-    const payload = await body.value;
+    const body = ctx.request.body();
+    let userCode = "";
+    if (body.type === "form-data") {
+      const reader = body.value;
+      const dataBody = await reader.read({ maxSize: 20000 });
+      const files = dataBody.files;
+      if (!files) {
+        ctx.response.body = "No files uploaded.";
+        ctx.response.status = Status.BadRequest;
+        return;
+      }
+
+      userCode = new TextDecoder().decode(files[0].content);
+    } else if (body.type === "json") {
+      userCode = await body.value;
+    } else {
+      ctx.response.body = "Unsupported payload.";
+      ctx.response.status = Status.BadRequest;
+      return;
+    }
+    console.log("payload", userCode);
 
     try {
-      const svg = await draw(payload);
+      const svg = await draw(userCode);
       ctx.response.body = svg;
       ctx.response.headers.set("Content-Type", "image/svg+xml");
     } catch (e) {
