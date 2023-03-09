@@ -17,7 +17,7 @@ curl -XPOST -F "file=@sample.ts" https://draw-zaynetro.fly.dev/api/draw > drawin
 
 Here is a sample file you can use:
 
-```
+```ts
 // sample.ts
 import { Drawing, Color } from 'https://draw-zaynetro.fly.dev/static/painter.ts';
 
