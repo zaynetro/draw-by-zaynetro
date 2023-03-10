@@ -19,14 +19,17 @@ Here is a sample file you can use:
 
 ```ts
 // sample.ts
-import { Drawing, Color } from 'https://draw-zaynetro.fly.dev/static/painter.ts';
+import {
+  Color,
+  Drawing,
+} from "https://draw-zaynetro.fly.dev/static/painter.ts";
 
 const d = new Drawing();
 d.border(Color.Blue);
-d.setPixel( 3, 3, Color.Red );
-d.setPixel( 3, 4, Color.Red );
-d.setPixel( 3, 5, Color.Red );
-d.setPixel( 3, 7, Color.Red );
+d.setPixel(3, 3, Color.Red);
+d.setPixel(3, 4, Color.Red);
+d.setPixel(3, 5, Color.Red);
+d.setPixel(3, 7, Color.Red);
 
 export default d.complete();
 ```

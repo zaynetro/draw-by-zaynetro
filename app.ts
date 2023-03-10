@@ -135,6 +135,10 @@ export const app = new Application({
   // Doesn't work with --watch: https://github.com/denoland/deno/issues/16699
   // serverConstructor: FlashServer,
 });
+app.use((ctx, next) => {
+  ctx.response.headers.set("Access-Control-Allow-Origin", "*");
+  return next();
+});
 app.use(etag.factory());
 app.use(router.routes());
 app.use(router.allowedMethods());
