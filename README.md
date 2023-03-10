@@ -2,6 +2,9 @@
 
 This is an HTTP server that renders SVG files by executing TypeScript code.
 
+* Read [this blog post](https://www.zaynetro.com/post/what-is-deno/) for more details and live example.
+
+
 ## How to use?
 
 You can see default drawing by visiting: https://draw-zaynetro.fly.dev/api/draw
