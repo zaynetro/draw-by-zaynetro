@@ -1,3 +1,7 @@
+// From https://deno.land/manual@v1.31.3/advanced/typescript/types#type-checking-web-workers
+/// <reference no-default-lib="true" />
+/// <reference lib="deno.worker" />
+
 console.log("[worker] Starting...");
 addEventListener("message", async (event) => {
   try {
